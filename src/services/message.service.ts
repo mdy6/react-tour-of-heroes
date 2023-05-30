@@ -12,9 +12,19 @@ export class MessageService implements LoggerService {
     }
   }
 
+export class ConsoleLogger implements LoggerService{
+    add(message: string) {
+        console.log(`${message} ${Date.UTC.toString()}`)
+      }
+    
+      clear() {
+
+      }}
+
 
 export interface LoggerService{
     add(message: string):void;
     clear(): void;
 }
+injected(ConsoleLogger);
 injected(MessageService);

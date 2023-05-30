@@ -1,8 +1,9 @@
 import { token } from 'brandi';
 
-import { MessageService } from './message.service';
+import { ConsoleLogger, MessageService } from './message.service';
 import { HeroService, MockHeroService } from './hero.service';
 export const TOKENS = {
-    messageService: token<MessageService>('message'),
-    heroService: token<HeroService>('hero')
+    consoleService: token<ConsoleLogger>('consoleLogger'),
+    messageService: token<MessageService>('messageService'),
+    heroService: token<MockHeroService>('mockheroservice')
 }
