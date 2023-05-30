@@ -1,5 +1,7 @@
 import { FC } from "react";
 import { Hero } from "../models/Hero";
+import { useInjection } from "brandi-react";
+import { TOKENS } from "../services/token";
 
 type HeroListElementProps = {
     selectedHeroId: number,
@@ -8,9 +10,12 @@ type HeroListElementProps = {
 }
 
 const HeroListElement: FC<HeroListElementProps> = ({ hero, selectedHeroId, selectHero }) => {
+    const logger = useInjection(TOKENS.consoleService);
     const handleClickEvent = (heroId: string) => {
-        if (heroId === hero.id.toString())
+        if (heroId === hero.id.toString()){
             selectHero(hero)
+            logger.add(`Hero ${hero.name} selected`)
+        }
     }
 
     return (
