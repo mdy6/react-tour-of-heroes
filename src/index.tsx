@@ -3,13 +3,25 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createContainer } from 'brandi';
+import { TOKENS } from './services/token';
+import { MockHeroService } from './services/hero.service';
+import { MessageService } from './services/message.service';
+import { ContainerProvider } from 'brandi-react';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const container = createContainer();
+container.bind(TOKENS.heroService).toInstance(MockHeroService).inTransientScope();
+container.bind(TOKENS.messageService).toInstance(MessageService).inSingletonScope();
+
 root.render(
   <React.StrictMode>
-    <App />
+    <ContainerProvider container={container}>
+      <App />
+    </ContainerProvider>
   </React.StrictMode>
 );
 
