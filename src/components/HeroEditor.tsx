@@ -1,7 +1,11 @@
 import { FC, useState } from "react";
 import { Hero } from "../models/Hero";
 
-const HeroEditor: FC<Hero> = (hero) => {
+type HeroEditorProps ={
+    hero : Hero
+}
+
+const HeroEditor: FC<HeroEditorProps> = ({hero}) => {
     const [currentHero, setCurrentHero] = useState<Hero>(hero)
 
     const handleNameChange = (value: string) => {
