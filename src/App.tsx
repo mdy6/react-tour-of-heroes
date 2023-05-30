@@ -18,10 +18,10 @@ function App() {
     setSelectdHero(hero);
   }
   return (
-    <div className="App">
+    <div>
       <h1>Tour of Heroes</h1>
-      <HeroEditor hero={selectedHero} />
       <Heroes selectedHero={selectedHero} onSelect={handleOnSelectHero} />
+      <HeroEditor hero={selectedHero} />
     </div>
   );
 }
