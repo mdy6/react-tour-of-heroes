@@ -1,24 +1,18 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import HeroEditor from './components/HeroEditor';
+import { Hero } from './models/Hero';
 
+const defaultHero: Hero ={
+  id: 1,
+  name: 'Windstorm'
+}
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Tour of Heroes</h1>
+      <HeroEditor id={defaultHero.id} name={defaultHero.name} />
     </div>
   );
 }
