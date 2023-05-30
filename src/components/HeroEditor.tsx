@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Hero } from "../models/Hero";
 
 type HeroEditorProps ={
@@ -13,6 +13,8 @@ const HeroEditor: FC<HeroEditorProps> = ({hero}) => {
         currentHeroCopy.name = value;
         setCurrentHero(currentHeroCopy);
     }
+
+    useEffect(()=>{ setCurrentHero(hero) }, [hero.id])
     return (
         <>
             <div>
