@@ -4,6 +4,8 @@ import './App.css';
 import HeroEditor from './components/HeroEditor';
 import { Hero } from './models/Hero';
 import Heroes from './components/Heroes';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import HeroesDashboard from './components/HeroesDashboard';
 
 const defaultHero: Hero ={
   id: 0,
@@ -20,8 +22,14 @@ function App() {
   return (
     <div>
       <h1>Tour of Heroes</h1>
-      <Heroes selectedHero={selectedHero} onSelect={handleOnSelectHero} />
-      <HeroEditor hero={selectedHero} />
+      <BrowserRouter>
+      <Routes>
+        
+        <Route path='/dashboard' element={<HeroesDashboard/>}/>
+        <Route path='/heroes' element={<Heroes selectedHero={selectedHero} onSelect={handleOnSelectHero} />} />
+        <Route path='/hero/:id' element={<HeroEditor hero={selectedHero}/>} />
+      </Routes>
+      </BrowserRouter>
     </div>
   );
 }
