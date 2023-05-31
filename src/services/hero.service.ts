@@ -15,10 +15,19 @@ export class MockHeroService implements HeroService {
         const heroes = of(HEROES);
         this.messageService.add("fetch all heroes");
         return heroes;
-      }}
+    }
+
+    getHero(id: number): Observable<Hero> {
+        const hero = HEROES.find(h => h.id === id)!;
+        this.messageService.add(`HeroService: fetched hero id=${id}`);
+        return of(hero);
+      }
+}
 
 export interface HeroService {
-    getHeroes() : Observable<Hero[]>
+    getHeroes(): Observable<Hero[]>
+    getHero(id:number): Observable<Hero>
+
 }
 
 injected(MockHeroService, TOKENS.consoleService)

@@ -2,15 +2,12 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import HeroEditor from './components/HeroEditor';
-import { Hero } from './models/Hero';
+import { Hero, defaultHero } from './models/Hero';
 import Heroes from './components/Heroes';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import HeroesDashboard from './components/HeroesDashboard';
+import HeroesNavBar from './components/HeroesNavBar';
 
-const defaultHero: Hero ={
-  id: 0,
-  name: ''
-}
 
 function App() {
 
@@ -19,15 +16,17 @@ function App() {
   const handleOnSelectHero = (hero: Hero)=>{
     setSelectdHero(hero);
   }
+
   return (
     <div>
-      <h1>Tour of Heroes</h1>
       <BrowserRouter>
+      <h1>Tour of Heroes</h1>
+      
       <Routes>
-        
+        <Route path='/' element={<HeroesNavBar/>} />
         <Route path='/dashboard' element={<HeroesDashboard/>}/>
         <Route path='/heroes' element={<Heroes selectedHero={selectedHero} onSelect={handleOnSelectHero} />} />
-        <Route path='/hero/:id' element={<HeroEditor hero={selectedHero}/>} />
+        <Route path='/hero/:id' element={<HeroEditor/>} />
       </Routes>
       </BrowserRouter>
     </div>
