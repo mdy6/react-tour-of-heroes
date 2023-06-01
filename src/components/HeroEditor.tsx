@@ -11,11 +11,11 @@ const HeroEditor: FC = () => {
     const [currentHero, setCurrentHero] = useState<Hero>(defaultHero)
     const { id } = useParams();
 
-    const getCurrentHero =() =>{
+    const getCurrentHero = async () =>{
         if(id){
             let currentHeroId: number = Number.parseInt(id);
-            heroService.getHero(currentHeroId)
-            .subscribe(hero => setCurrentHero(hero))
+            let heroResponse = await heroService.getHero(currentHeroId)
+            setCurrentHero(heroResponse)
         }
     }
     const handleNameChange = (value: string) => {

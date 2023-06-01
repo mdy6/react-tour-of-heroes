@@ -12,17 +12,19 @@ type HeroesProps = {
 const Heroes: FC<HeroesProps> = ({ selectedHero, onSelect }) => {
 
     const heroService = useInjection(TOKENS.heroService);
-    
     const [heroesList, setHeroesList] = useState<Hero[]>([]);
-
+    
+    const getHeroes = () => {
+        heroService.getHeroes().then((response) =>{
+            setHeroesList(response as Hero[]);
+        }).catch((error)=> {
+            console.log(error)
+        });
+    }
+    
     useEffect(() => {
         getHeroes()
-    }, []);
-
-    const getHeroes = () => {
-       heroService.getHeroes()
-        .subscribe(heroes => setHeroesList(heroes));
-    }
+    }, [heroesList.length]);
 
     return (
         <>

@@ -1,32 +1,37 @@
 import { Observable, of } from "rxjs";
-import { HEROES } from "../mock/mock-heroes";
-import { Hero } from "../models/Hero";
+import { HEROES } from "../mocks/mock-heroes";
+import { Hero, defaultHero } from "../models/Hero";
 import { LoggerService } from "./message.service";
 import { injected } from 'brandi';
+import axios, { AxiosResponse } from "axios";
 
 import { TOKENS } from './token';
+import { useQuery } from "@tanstack/react-query";
+import { response } from "msw";
+import { resolve } from "path";
 
 export class MockHeroService implements HeroService {
 
+    
     constructor(private messageService: LoggerService) {
     }
 
-    getHeroes(): Observable<Hero[]> {
-        const heroes = of(HEROES);
-        this.messageService.add("fetch all heroes");
-        return heroes;
+    getHeroes(): Promise<Hero[]> {
+        return Promise.resolve(HEROES)
     }
 
-    getHero(id: number): Observable<Hero> {
-        const hero = HEROES.find(h => h.id === id)!;
-        this.messageService.add(`HeroService: fetched hero id=${id}`);
-        return of(hero);
+    getHero(id: number): Promise<Hero> {
+        let result = HEROES.find(h => h.id === id)
+        if(result!== undefined){
+            return Promise.resolve(result)
+        }
+        return Promise.resolve(defaultHero)
       }
 }
 
 export interface HeroService {
-    getHeroes(): Observable<Hero[]>
-    getHero(id:number): Observable<Hero>
+    getHeroes(): Promise<Hero[]>
+    getHero(id:number): Promise<Hero>
 
 }
 

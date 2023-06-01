@@ -14,7 +14,7 @@ export class MessageService implements LoggerService {
 
 export class ConsoleLogger implements LoggerService{
     add(message: string) {
-        console.log(`${message} ${Date.UTC.toString()}`)
+        console.log(`${message} ${new Date()}`)
       }
     
       clear() {

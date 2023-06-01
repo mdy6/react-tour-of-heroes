@@ -9,14 +9,14 @@ const HeroesDashboard: FC = () => {
     const [topHeroes, setTopHeroes] = useState<Hero[]>([]);
     const heroService = useInjection(TOKENS.heroService);
 
-    const getHeroesTopHeroes = () => {
-        heroService.getHeroes()
-            .subscribe(heroes => setTopHeroes(heroes.slice(1, 5)));
+    const getHeroesTopHeroes = async () => {
+        let heroes = await heroService.getHeroes()
+        setTopHeroes(heroes.slice(1, 5));
     }
 
     useEffect(() => {
         getHeroesTopHeroes()
-    });
+    }, []);
 
     return (
         <>
