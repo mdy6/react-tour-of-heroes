@@ -4,6 +4,7 @@ import { LoggerService } from "./message.service";
 import { injected } from 'brandi';
 
 import { TOKENS } from './token';
+import { Observable, catchError, of, tap } from "rxjs";
 
 export class MockHeroService implements HeroService {
     heroes: Hero[] = [];
@@ -11,6 +12,12 @@ export class MockHeroService implements HeroService {
     constructor(private messageService: LoggerService) {
         this.heroes = HEROES;
     }
+    searchByName(heroName: string): Promise<Hero[]> {
+        return Promise.resolve(this.heroes.filter((h)=> h.name.toLowerCase().includes(heroName)))
+    }
+
+
+
     updateHero(hero: Hero): Promise<number> {
         var heroToUpdateId = this.heroes.findIndex((h) => h.id == hero.id);
         if(heroToUpdateId > 0){
@@ -50,6 +57,7 @@ export interface HeroService {
     getHero(id:number): Promise<Hero>
     addHero(hero:Hero): Promise<number>
     updateHero(hero:Hero): Promise<number>
+    searchByName(heroName :string):Promise<Hero[]>
 
 }
 
