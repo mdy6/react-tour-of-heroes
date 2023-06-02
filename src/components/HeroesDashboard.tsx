@@ -25,7 +25,7 @@ const HeroesDashboard: FC = () => {
                 {
                     topHeroes.map((hero) => {
                         return (
-                            <Link to={`/hero/${hero.id}`}>{hero.name}</Link>);
+                            <Link key={hero.id} to={`/hero/${hero.id}`}>{hero.name}</Link>);
                     }
                     )
                 }

@@ -1,27 +1,42 @@
-import { Observable, of } from "rxjs";
 import { HEROES } from "../mocks/mock-heroes";
 import { Hero, defaultHero } from "../models/Hero";
 import { LoggerService } from "./message.service";
 import { injected } from 'brandi';
-import axios, { AxiosResponse } from "axios";
 
 import { TOKENS } from './token';
-import { useQuery } from "@tanstack/react-query";
-import { response } from "msw";
-import { resolve } from "path";
 
 export class MockHeroService implements HeroService {
-
+    heroes: Hero[] = [];
     
     constructor(private messageService: LoggerService) {
+        this.heroes = HEROES;
+    }
+    updateHero(hero: Hero): Promise<number> {
+        var heroToUpdateId = this.heroes.findIndex((h) => h.id == hero.id);
+        if(heroToUpdateId > 0){
+            this.heroes[heroToUpdateId] = hero;
+            this.messageService.add(`Hero :${hero.name} updated`)
+            return Promise.resolve(this.heroes[heroToUpdateId].id)
+        }
+        return Promise.resolve(0)    
+    }
+
+    addHero(hero: Hero): Promise<number> {
+        if(hero.id === 0 && hero.name.length> 0){
+            var maxId = this.heroes.map((h)=> h.id).sort((a,b)=> a + b)[0]
+            var newHero: Hero = {id: maxId + 1, name: hero.name}
+            this.heroes.push(newHero)
+            return Promise.resolve(maxId);
+        }
+        return Promise.resolve(0)
     }
 
     getHeroes(): Promise<Hero[]> {
-        return Promise.resolve(HEROES)
+        return Promise.resolve(this.heroes)
     }
 
     getHero(id: number): Promise<Hero> {
-        let result = HEROES.find(h => h.id === id)
+        let result = this.heroes.find(h => h.id === id)
         if(result!== undefined){
             return Promise.resolve(result)
         }
@@ -32,6 +47,8 @@ export class MockHeroService implements HeroService {
 export interface HeroService {
     getHeroes(): Promise<Hero[]>
     getHero(id:number): Promise<Hero>
+    addHero(hero:Hero): Promise<number>
+    updateHero(hero:Hero): Promise<number>
 
 }
 

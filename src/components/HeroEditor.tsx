@@ -28,6 +28,13 @@ const HeroEditor: FC = () => {
     const goBack = () =>{
         navigate(-1);
     }
+
+    const save = () =>{
+        heroService.updateHero(currentHero);
+        navigate('/heroes')
+    }
+
+
     useEffect(() => { getCurrentHero() }, [currentHero.id])
     return (
         <>
@@ -37,6 +44,7 @@ const HeroEditor: FC = () => {
                 <label >Hero name: </label>
                 <input defaultValue={currentHero.name} onChange={(e) => handleNameChange(e.target.value)}></input>
             </div>
+            <button type="button" onClick={save}>Save</button>
             <button type="button" onClick={goBack}>Go back</button>
         </>
     );
