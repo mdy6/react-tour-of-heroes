@@ -1,3 +1,8 @@
+# React typescript version of angular tour of heroes tuto
+
+[Angular : Tour of heroes](https://angular.io/tutorial/tour-of-heroes)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
