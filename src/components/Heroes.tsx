@@ -14,6 +14,7 @@ const Heroes: FC = () => {
     const [newHeroName, setNewHeroName] = useState<string>("");
     const [refreshKey,setRefreshKey] = useState<number>(Date.now());
 
+    
     const getHeroes = () => {
         heroService.getHeroes().then((response) => {
             setHeroesList(response as Hero[]);

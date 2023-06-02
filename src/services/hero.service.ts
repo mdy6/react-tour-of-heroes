@@ -13,7 +13,12 @@ export class MockHeroService implements HeroService {
         this.heroes = HEROES;
     }
     searchByName(heroName: string): Promise<Hero[]> {
-        return Promise.resolve(this.heroes.filter((h)=> h.name.toLowerCase().includes(heroName)))
+        if(heroName.length === 0)
+            return Promise.resolve([]);
+        var searchfilter = heroName.toLowerCase()
+        return Promise.resolve(this.heroes.filter((h)=> h.name.toLowerCase().startsWith(searchfilter) 
+        || h.name.toLowerCase().includes(searchfilter) 
+        ||h.name.toLowerCase().endsWith(searchfilter)))
     }
 
 

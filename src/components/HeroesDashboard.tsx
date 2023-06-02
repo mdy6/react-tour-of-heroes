@@ -12,7 +12,7 @@ const HeroesDashboard: FC = () => {
     const heroService = useInjection(TOKENS.heroService);
     const [searchTerm, setSearchTerm] = useState<string>("");
     const [heroesSearchResult, setHeroesSearchResult] = useState<Hero[]>([]);
-    const searchValueSubject: Subject<string> = new Subject<string>();
+    const [searchValueSubject, setSearchValueSubject] = useState<Subject<string>>(new Subject<string>());
 
     const getHeroesTopHeroes = async () => {
         let heroes = await heroService.getHeroes()
@@ -21,22 +21,17 @@ const HeroesDashboard: FC = () => {
 
     useEffect(() => {
         getHeroesTopHeroes()
-        // searchValueSubject.pipe(
-        //     debounceTime(300),
-        //     distinctUntilChanged(),
-        //     switchMap((term: string) => setSearchResultFromService(term))
-        // )
+        searchValueSubject.pipe(
+            debounceTime(300),
+            distinctUntilChanged(),
+            switchMap((term: string) => heroService.searchByName(term))
+        ).subscribe((heroes) => setHeroesSearchResult(heroes))
     }, []);
+
+
     const handleSearchHeroes = (term: string) => {
         setSearchTerm(term)
-        if (term.length === 0) {
-            setHeroesSearchResult([])
-            return
-        }
-        heroService.searchByName(term).then((response) => {
-            console.log(response)
-            setHeroesSearchResult(response)
-        })
+        searchValueSubject.next(term)
     }
 
     const setSearchResultFromService = (term: string) => {
@@ -51,6 +46,15 @@ const HeroesDashboard: FC = () => {
         <>
             <h2>Top Heroes</h2>
 
+            <div className="heroes-menu">
+                {
+                    topHeroes.map((hero) => {
+                        return (
+                            <Link key={hero.id} to={`/hero/${hero.id}`}>{hero.name}</Link>);
+                    }
+                    )
+                }
+            </div>
             <div id="search-component">
                 <label >Hero Search</label>
                 <input id="search-box" value={searchTerm} onChange={(e) => handleSearchHeroes(e.target.value)} />
@@ -65,15 +69,6 @@ const HeroesDashboard: FC = () => {
                         )
                     }
                 </ul>
-            </div>
-            <div className="heroes-menu">
-                {
-                    topHeroes.map((hero) => {
-                        return (
-                            <Link key={hero.id} to={`/hero/${hero.id}`}>{hero.name}</Link>);
-                    }
-                    )
-                }
             </div>
             <BackButton />
         </>
