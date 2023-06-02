@@ -3,13 +3,11 @@ import HeroListElement from "./HeroListElement";
 import { Hero, defaultHero } from "../models/Hero";
 import { useInjection } from "brandi-react";
 import { TOKENS } from "../services/token";
+import { BackButton } from "./utils/BackButton";
 
-type HeroesProps = {
-    selectedHero: Hero;
-    onSelect: (hero: Hero) => void
-}
 
-const Heroes: FC<HeroesProps> = ({ selectedHero, onSelect }) => {
+
+const Heroes: FC = () => {
 
     const heroService = useInjection(TOKENS.heroService);
     const [heroesList, setHeroesList] = useState<Hero[]>([]);
@@ -39,7 +37,7 @@ const Heroes: FC<HeroesProps> = ({ selectedHero, onSelect }) => {
             <h2>My Heroes</h2>
             <div>
                 <label >Hero name: </label>
-                <input onChange={(e) => setNewHeroName(e.target.value)}></input>
+                <input id="herosaveid" onChange={(e) => setNewHeroName(e.target.value)}></input>
 
                 <button type="button" className="add-button" onClick={() => addHero()}>
                     Add hero
@@ -50,13 +48,14 @@ const Heroes: FC<HeroesProps> = ({ selectedHero, onSelect }) => {
                     heroesList.map((hero) => {
                         return (
                             <li key={hero.id}>
-                                <HeroListElement hero={hero} selectHero={onSelect} selectedHeroId={selectedHero?.id} />
+                                <HeroListElement hero={hero}   />
                             </li>
                         )
                     })
 
                 }
             </ul>
+            <BackButton/>
 
         </>
     )

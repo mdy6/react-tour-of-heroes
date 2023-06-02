@@ -5,9 +5,9 @@ import { TOKENS } from "../services/token";
 import { useNavigate } from "react-router-dom";
 
 type HeroListElementProps = {
-    selectedHeroId: number,
+    selectedHeroId?: number,
     hero: Hero,
-    selectHero: (hero: Hero) => void
+    selectHero?: (hero: Hero) => void
 }
 
 const HeroListElement: FC<HeroListElementProps> = ({ hero, selectedHeroId, selectHero }) => {
@@ -15,14 +15,15 @@ const HeroListElement: FC<HeroListElementProps> = ({ hero, selectedHeroId, selec
     const navigate = useNavigate();
     const handleClickEvent = (heroId: string) => {
         if (heroId === hero.id.toString()){
-            selectHero(hero)
+            if(selectHero!== undefined)
+                selectHero(hero)
             logger.add(`Hero ${hero.name} selected`)
             navigate(`/hero/${hero.id}`)    
         }
     }
 
     return (
-        <button type="button" className={selectedHeroId === hero.id ? "selected" : ""} 
+        <button type="button" className={selectedHeroId !== undefined && selectedHeroId === hero.id ? "selected" : ""} 
         onClick={(e) => handleClickEvent(e.currentTarget.value)} value={hero.id} >
             <span className="badge">{hero.id}</span>
             <span className="name"> {hero.name}</span>

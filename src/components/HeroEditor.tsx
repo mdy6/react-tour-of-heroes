@@ -3,6 +3,7 @@ import { Hero, defaultHero } from "../models/Hero";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useInjection } from "brandi-react";
 import { TOKENS } from "../services/token";
+import { BackButton } from "./utils/BackButton";
 
 
 const HeroEditor: FC = () => {
@@ -25,9 +26,6 @@ const HeroEditor: FC = () => {
     }
 
     const navigate = useNavigate();
-    const goBack = () =>{
-        navigate(-1);
-    }
 
     const save = () =>{
         heroService.updateHero(currentHero);
@@ -35,17 +33,17 @@ const HeroEditor: FC = () => {
     }
 
 
-    useEffect(() => { getCurrentHero() }, [currentHero.id])
+    useEffect(() => { getCurrentHero() }, [id])
     return (
         <>
             <h2>{currentHero.name.toUpperCase()} Details</h2>
             <div><span>id: </span>{currentHero.id}</div>
             <div>
                 <label >Hero name: </label>
-                <input defaultValue={currentHero.name} onChange={(e) => handleNameChange(e.target.value)}></input>
+                <input id="updateheroid" value={currentHero.name} onChange={(e) => handleNameChange(e.target.value)}></input>
             </div>
             <button type="button" onClick={save}>Save</button>
-            <button type="button" onClick={goBack}>Go back</button>
+            <BackButton/>
         </>
     );
 }

@@ -25,7 +25,7 @@ function App() {
       <Routes>
         <Route path='/' element={<HeroesNavBar/>} />
         <Route path='/dashboard' element={<HeroesDashboard/>}/>
-        <Route path='/heroes' element={<Heroes selectedHero={selectedHero} onSelect={handleOnSelectHero} />} />
+        <Route path='/heroes' element={<Heroes />} />
         <Route path='/hero/:id' element={<HeroEditor/>} />
       </Routes>
       </BrowserRouter>

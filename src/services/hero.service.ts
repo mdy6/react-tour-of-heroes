@@ -23,7 +23,8 @@ export class MockHeroService implements HeroService {
 
     addHero(hero: Hero): Promise<number> {
         if(hero.id === 0 && hero.name.length> 0){
-            var maxId = this.heroes.map((h)=> h.id).sort((a,b)=> a + b)[0]
+            var maxId = this.heroes.map((h)=> h.id).sort((a,b) => b-a)[0]
+            console.log(maxId)
             var newHero: Hero = {id: maxId + 1, name: hero.name}
             this.heroes.push(newHero)
             return Promise.resolve(maxId);
