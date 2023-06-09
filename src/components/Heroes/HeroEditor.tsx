@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from "react";
-import { Hero, defaultHero } from "../models/Hero";
+import { Hero, defaultHero } from "../../models/Hero";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useInjection } from "brandi-react";
-import { TOKENS } from "../services/token";
-import { BackButton } from "./utils/BackButton";
+import { TOKENS } from "../../services/token";
+import { BackButton } from "../utils/BackButton";
 
 
 const HeroEditor: FC = () => {

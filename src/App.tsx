@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import HeroEditor from './components/HeroEditor';
+import HeroEditor from './components/Heroes/HeroEditor';
 import { Hero, defaultHero } from './models/Hero';
-import Heroes from './components/Heroes';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-import HeroesDashboard from './components/HeroesDashboard';
-import HeroesNavBar from './components/HeroesNavBar';
+import HeroesNavBar from './components/Heroes/HeroesNavBar';
+import HeroesDashboard from './components/Heroes/HeroesDashboard';
+import Heroes from './components/Heroes/Heroes';
 
 
 function App() {

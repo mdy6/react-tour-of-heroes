@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from "react";
 import HeroListElement from "./HeroListElement";
-import { Hero, defaultHero } from "../models/Hero";
 import { useInjection } from "brandi-react";
-import { TOKENS } from "../services/token";
-import { BackButton } from "./utils/BackButton";
+import { TOKENS } from "../../services/token";
+import { Hero, defaultHero } from "../../models/Hero";
+import { BackButton } from "../utils/BackButton";
 
 
 

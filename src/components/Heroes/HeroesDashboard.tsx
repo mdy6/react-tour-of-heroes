@@ -1,10 +1,10 @@
 import { FC, useEffect, useState } from "react"
-import { Hero } from "../models/Hero";
 import { useInjection } from "brandi-react";
-import { TOKENS } from "../services/token";
 import { Link } from "react-router-dom";
-import { BackButton } from "./utils/BackButton";
 import { Subject, debounceTime, distinctUntilChanged, switchMap } from "rxjs";
+import { Hero } from "../../models/Hero";
+import { TOKENS } from "../../services/token";
+import { BackButton } from "../utils/BackButton";
 
 
 const HeroesDashboard: FC = () => {

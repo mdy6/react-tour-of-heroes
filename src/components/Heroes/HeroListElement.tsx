@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { Hero } from "../models/Hero";
 import { useInjection } from "brandi-react";
-import { TOKENS } from "../services/token";
 import { useNavigate } from "react-router-dom";
+import { Hero } from "../../models/Hero";
+import { TOKENS } from "../../services/token";
 
 type HeroListElementProps = {
     selectedHeroId?: number,
