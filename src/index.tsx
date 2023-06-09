@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createContainer } from 'brandi';
 import { TOKENS } from './services/token';
-import { MockHeroService } from './services/hero.service';
+import { HeroApiService } from './services/hero.service';
 import { ConsoleLogger, MessageService } from './services/message.service';
 import { ContainerProvider } from 'brandi-react';
 
@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'development') {
   worker.start()
 }
 const container = createContainer();
-container.bind(TOKENS.heroService).toInstance(MockHeroService).inTransientScope();
+container.bind(TOKENS.heroService).toInstance(HeroApiService).inTransientScope();
 container.bind(TOKENS.messageService).toInstance(MessageService).inSingletonScope();
 container.bind(TOKENS.consoleService).toInstance(ConsoleLogger).inSingletonScope();
 

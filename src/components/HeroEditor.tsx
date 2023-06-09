@@ -28,8 +28,11 @@ const HeroEditor: FC = () => {
 
     const navigate = useNavigate();
 
+    const deleteHero = () =>{
+        heroService.deleteHero(currentHero.heroId);
+        navigate('/heroes')
+    }
     const save = () =>{
-        console.log(currentHero)
         heroService.updateHero(currentHero);
         navigate('/heroes')
     }
@@ -45,6 +48,8 @@ const HeroEditor: FC = () => {
                 <input id="updateheroid" value={currentHero.name} onChange={(e) => handleNameChange(e.target.value)}></input>
             </div>
             <button type="button" onClick={save}>Save</button>
+            <button type="button" onClick={deleteHero}>Delete</button>
+
             <BackButton/>
         </>
     );

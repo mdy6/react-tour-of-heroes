@@ -7,10 +7,14 @@ import { TOKENS } from './token';
 import { ApiInstance } from "./api/ApiInstance";
 import { Id } from "../models/Id";
 
-export class MockHeroService implements HeroService {
+export class HeroApiService implements HeroService {
     heroes: Hero[] = [];
 
     constructor(private messageService: LoggerService) {
+    }
+    async deleteHero(heroId: number): Promise<void> {
+        await ApiInstance.delete(`heroes/${heroId}`)
+        return;
     }
     
     async searchByName(heroName: string): Promise<Hero[]> {
@@ -53,7 +57,7 @@ export interface HeroService {
     addHero(hero:Hero): Promise<number>
     updateHero(hero:Hero): Promise<number>
     searchByName(heroName :string):Promise<Hero[]>
-
+    deleteHero(heroId:number): Promise<void>
 }
 
-injected(MockHeroService, TOKENS.consoleService)
+injected(HeroApiService, TOKENS.consoleService)
