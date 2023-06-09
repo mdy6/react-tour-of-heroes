@@ -1,18 +1,20 @@
 import { HEROES } from "../mocks/mock-heroes";
-import { Hero, defaultHero } from "../models/Hero";
+import { Hero, InputHero, OutputHero, defaultHero } from "../models/Hero";
 import { LoggerService } from "./message.service";
 import { injected } from 'brandi';
 
 import { TOKENS } from './token';
-import { Observable, catchError, of, tap } from "rxjs";
+import { ApiInstance } from "./api/ApiInstance";
+import { Id } from "../models/Id";
 
 export class MockHeroService implements HeroService {
     heroes: Hero[] = [];
-    
+
     constructor(private messageService: LoggerService) {
-        this.heroes = HEROES;
     }
-    searchByName(heroName: string): Promise<Hero[]> {
+    
+    async searchByName(heroName: string): Promise<Hero[]> {
+        this.heroes = await this.getHeroes()
         if(heroName.length === 0)
             return Promise.resolve([]);
         var searchfilter = heroName.toLowerCase()
@@ -23,37 +25,24 @@ export class MockHeroService implements HeroService {
 
 
 
-    updateHero(hero: Hero): Promise<number> {
-        var heroToUpdateId = this.heroes.findIndex((h) => h.id == hero.id);
-        if(heroToUpdateId > 0){
-            this.heroes[heroToUpdateId] = hero;
-            this.messageService.add(`Hero :${hero.name} updated`)
-            return Promise.resolve(this.heroes[heroToUpdateId].id)
-        }
-        return Promise.resolve(0)    
+    async updateHero(hero: Hero): Promise<number> {
+        let result = await ApiInstance.post<Id>("heroes", hero as InputHero)
+        return result.data; 
     }
 
-    addHero(hero: Hero): Promise<number> {
-        if(hero.id === 0 && hero.name.length> 0){
-            var maxId = this.heroes.map((h)=> h.id).sort((a,b) => b-a)[0]
-            console.log(maxId)
-            var newHero: Hero = {id: maxId + 1, name: hero.name}
-            this.heroes.push(newHero)
-            return Promise.resolve(maxId);
-        }
-        return Promise.resolve(0)
+    async addHero(hero: Hero): Promise<number> {
+        let result = await ApiInstance.post<Id>("heroes", hero as InputHero)
+        return result.data;
     }
 
-    getHeroes(): Promise<Hero[]> {
-        return Promise.resolve(this.heroes)
+    async getHeroes(): Promise<Hero[]> {
+        let heroes = await ApiInstance.get<OutputHero[]>("heroes")
+        return heroes.data;
     }
 
-    getHero(id: number): Promise<Hero> {
-        let result = this.heroes.find(h => h.id === id)
-        if(result!== undefined){
-            return Promise.resolve(result)
-        }
-        return Promise.resolve(defaultHero)
+    async getHero(id: number): Promise<Hero> {
+        let hero = await ApiInstance.get<OutputHero>(`heroes/${id}`)
+        return hero.data;
       }
 }
 
