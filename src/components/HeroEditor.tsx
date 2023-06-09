@@ -21,6 +21,7 @@ const HeroEditor: FC = () => {
     }
     const handleNameChange = (value: string) => {
         let currentHeroCopy: Hero = { ...currentHero };
+        console.log(currentHeroCopy)
         currentHeroCopy.name = value;
         setCurrentHero(currentHeroCopy);
     }
@@ -28,6 +29,7 @@ const HeroEditor: FC = () => {
     const navigate = useNavigate();
 
     const save = () =>{
+        console.log(currentHero)
         heroService.updateHero(currentHero);
         navigate('/heroes')
     }
@@ -37,7 +39,7 @@ const HeroEditor: FC = () => {
     return (
         <>
             <h2>{currentHero.name.toUpperCase()} Details</h2>
-            <div><span>id: </span>{currentHero.id}</div>
+            <div><span>id: </span>{currentHero.heroId}</div>
             <div>
                 <label >Hero name: </label>
                 <input id="updateheroid" value={currentHero.name} onChange={(e) => handleNameChange(e.target.value)}></input>

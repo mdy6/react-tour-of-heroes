@@ -1,7 +1,7 @@
 import { Id } from "./Id";
 
 export interface Hero {
-  id: Id;
+  heroId: Id;
   name: string;
 }
 
@@ -12,7 +12,7 @@ export interface Hero {
 }
 
 export const defaultHero: Hero = {
-  id: 0,
+  heroId: 0,
   name: '',
   powerTypeId: 0,
   popularity: 0,

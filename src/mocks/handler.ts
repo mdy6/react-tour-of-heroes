@@ -17,10 +17,10 @@ rest.get('/heroes/:heroId', (req, res, ctx) =>{
 
     var hero: Hero = defaultHero; 
     if(heroId){
-        hero = HEROES.find((h) => h.id.toString() === heroId) ?? defaultHero
+        hero = HEROES.find((h) => h.heroId.toString() === heroId) ?? defaultHero
     }
 
-    if (hero.id > 0) {
+    if (hero.heroId > 0) {
         return res(
             ctx.status(200),
             ctx.body(JSON.stringify(hero))

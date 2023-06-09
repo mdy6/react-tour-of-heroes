@@ -48,7 +48,7 @@ const Heroes: FC = () => {
                 {
                     heroesList.map((hero) => {
                         return (
-                            <li key={hero.id}>
+                            <li key={hero.heroId}>
                                 <HeroListElement hero={hero}   />
                             </li>
                         )

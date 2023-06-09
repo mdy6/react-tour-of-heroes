@@ -32,6 +32,7 @@ export class MockHeroService implements HeroService {
 
     async addHero(hero: Hero): Promise<number> {
         let result = await ApiInstance.post<Id>("heroes", hero as InputHero)
+        console.log(result.status)
         return result.data;
     }
 

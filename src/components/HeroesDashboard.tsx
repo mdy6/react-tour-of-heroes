@@ -50,7 +50,7 @@ const HeroesDashboard: FC = () => {
                 {
                     topHeroes.map((hero) => {
                         return (
-                            <Link key={hero.id} to={`/hero/${hero.id}`}>{hero.name}</Link>);
+                            <Link key={hero.heroId} to={`/hero/${hero.heroId}`}>{hero.name}</Link>);
                     }
                     )
                 }
@@ -63,7 +63,7 @@ const HeroesDashboard: FC = () => {
                         heroesSearchResult.map((hero) => {
                             return (
                                 <li >
-                                    <Link key={hero.id} to={`/hero/${hero.id}`}>{hero.name}</Link>
+                                    <Link key={hero.heroId} to={`/hero/${hero.heroId}`}>{hero.name}</Link>
                                 </li>)
                         }
                         )
