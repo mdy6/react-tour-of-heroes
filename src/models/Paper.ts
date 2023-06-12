@@ -17,3 +17,15 @@ export interface Paper {
 
 export type InputPaper = Paper
 export type OutputPaper = Paper
+
+export const  defaultPaper :Paper ={
+  authorId :0,
+  content: '',
+  description:'',
+  heroId: 0,
+  iDontLikeCount:0,
+  iLikeCount: 0,
+  paperId: 0,
+  publicationDate: new Date(),
+  title:''
+}

@@ -8,6 +8,7 @@ import { TOKENS } from './services/token';
 import { HeroApiService } from './services/hero.service';
 import { ConsoleLogger, MessageService } from './services/message.service';
 import { ContainerProvider } from 'brandi-react';
+import { PaperApiService } from './services/paper.service';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -22,6 +23,8 @@ const container = createContainer();
 container.bind(TOKENS.heroService).toInstance(HeroApiService).inTransientScope();
 container.bind(TOKENS.messageService).toInstance(MessageService).inSingletonScope();
 container.bind(TOKENS.consoleService).toInstance(ConsoleLogger).inSingletonScope();
+container.bind(TOKENS.paperService).toInstance(PaperApiService).inTransientScope();
+
 
 root.render(
   <React.StrictMode>

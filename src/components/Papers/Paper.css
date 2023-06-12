@@ -1,0 +1,18 @@
+.paper-article {
+    margin-bottom: 20px;
+  }
+  
+  .paper-article-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .paper-article-author {
+    color: #777;
+  }
+  
+  .paper-article-content {
+    margin-top: 10px;
+  }
+  
