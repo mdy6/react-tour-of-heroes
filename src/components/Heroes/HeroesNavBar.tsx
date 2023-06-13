@@ -6,6 +6,8 @@ const HeroesNavBar: FC = () => {
         <nav>
             <Link to={'/dashboard'}>Dashboard</Link>
             <Link to={'/heroes'}>Heroes</Link>
+            <Link to={'/papers'}>Papers</Link>
+
         </nav>
     )
 }

@@ -7,30 +7,38 @@ import './Paper.css';
 
 
 const PaperPresentation: FC = () => {
+    const [refreshKey, setRefreshKey] = useState<number>()
     const paperService = useInjection(TOKENS.paperService);
     const { id } = useParams();
-
+    
     const [paperId, setPaperId] = useState(0)
     const [paper, setPaper] = useState<Paper>(defaultPaper);
+
+    
+    const refresh = () => {
+        setRefreshKey(Date.now())
+    }
     const like = () => {
         paperService.likePaper(paperId)
+        refresh()
     }
-
     const dontLike = () => {
         paperService.dontlikePaper(paperId)
+        refresh()
     }
 
 
     useEffect(() => {
-        if(id)
+        console.log(id);
+        if (id)
             setPaperId(Number.parseInt(id))
         paperService.getPaper(paperId).then((response) => {
             setPaper(response)
         })
-    }, [paperId])
+    }, [refreshKey,paperId])
 
     return (
-        <div className="paper">
+        <div className="paper-article">
             <h2 className="paper-title">{paper.title}</h2>
             <div className="paper-content">{paper.content}</div>
             <button onClick={like}>Like {paper.iLikeCount}</button>

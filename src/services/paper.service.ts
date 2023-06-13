@@ -1,31 +1,38 @@
-import { Paper } from "../models/Paper";
+import { OutputPaper, Paper } from "../models/Paper";
 import { injected } from 'brandi';
 import { ApiInstance } from "./api/ApiInstance";
 
 
 
 export class PaperApiService implements PaperService{
-    
     constructor(){
+    }
+    async getPapers(): Promise<Paper[]> {
+        var papers = await ApiInstance.get('papers');
+        return papers.data as OutputPaper[];
+    }
+    async getPaper(paperId: number): Promise<Paper> {
+        var paper = await ApiInstance.get(`papers/${paperId}`);
+        return paper.data as OutputPaper;
+    }
 
+    async likePaper(paperId: number): Promise<number> {
+        var currentPaper = await this.getPaper(paperId);
+        currentPaper.iLikeCount++;
+        return await this.editPaper(currentPaper);
     }
-    getPapers(): Promise<Paper[]> {
-        throw new Error("Method not implemented.");
+    async dontlikePaper(paperId: number): Promise<number> {
+        var currentPaper = await this.getPaper(paperId);
+        currentPaper.iDontLikeCount++;
+        return await this.editPaper(currentPaper);
     }
-    getPaper(paperId: number): Promise<Paper> {
-        throw new Error("Method not implemented.");
+    async deletePaper(paperId: number): Promise<void> {
+        var deletePaper =await ApiInstance.delete(`papers/${paperId}`);
+        return deletePaper.data
     }
-    likePaper(paperId: number): Promise<number> {
-        throw new Error("Method not implemented.");
-    }
-    dontlikePaper(paperId: number): Promise<number> {
-        throw new Error("Method not implemented.");
-    }
-    deletePaper(paperId: number): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    editPaper(paper: Paper): Promise<number> {
-        throw new Error("Method not implemented.");
+    async editPaper(paper: Paper): Promise<number> {
+        var postResponse = await ApiInstance.post(`papers/publish`, paper);
+        return postResponse.data
     }
     
     

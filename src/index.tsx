@@ -27,11 +27,9 @@ container.bind(TOKENS.paperService).toInstance(PaperApiService).inTransientScope
 
 
 root.render(
-  <React.StrictMode>
     <ContainerProvider container={container}>
       <App />
     </ContainerProvider>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

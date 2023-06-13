@@ -3,36 +3,55 @@ import { Paper } from "../../models/Paper"
 import { useInjection } from "brandi-react";
 import { TOKENS } from "../../services/token";
 import PaperCard from "./PaperCard";
-import { useNavigate } from "react-router-dom";
+import { NavigateOptions, redirect, useNavigate, useParams } from "react-router-dom";
+import { Hero, defaultHero } from "../../models/Hero";
 
 
 
-const Papers: FC = () =>{
+const Papers: FC= () => {
     const paperService = useInjection(TOKENS.paperService);
+    const heroService = useInjection(TOKENS.heroService);
+
+    const { heroId } = useParams();
+
     const navigate = useNavigate();
 
     const [papers, setPapers] = useState<Paper[]>([])
+    const [currentHero, setCurrentHero]= useState<Hero>(defaultHero);
 
-    useEffect(()=> {
-        paperService.getPapers().then((response) =>{
-            setPapers(response)
-        })
-    }, [])
-
-    const goToPaper = (paperId : number) =>{
-            navigate(`papers/${paperId}`);
+    const getCurrentHero = async () =>{
+        if(heroId){
+            let heroResponse = await heroService.getHero( Number.parseInt(heroId))
+            setCurrentHero(heroResponse)
+        }
     }
-    return(
+    useEffect(() => {
+        getCurrentHero();
+        paperService.getPapers().then((response) => {
+            setPapers(heroId ? (response as Paper[]).filter(h => h.heroId == Number.parseInt(heroId)) : response)
+        })
+    }, [currentHero.heroId])
+
+    const goToPaper = (paperId: number) => {
+        navigate(`/papers/${paperId}`);
+    }
+    return (
         <>
-        <h1>Heroes Papers</h1>
-            {papers.map((paper) =>{
-                return(
-                    <PaperCard paper={paper} onClick={() => goToPaper(paper.paperId)} />
-                )
-            })}
-        
-        
-        
+            <h2>Heroes Papers</h2>
+            {papers.length === 0 ?<div>No Papers founded on {currentHero.name} </div>:
+                        <div className="paper-article-container">
+
+                        {papers.map((paper) => {
+                            return (
+                                <PaperCard paper={paper} onClick={() => goToPaper(paper.paperId)} />
+                            )
+                        })}
+    
+    
+    
+                </div>
+            }
+
         </>
     )
 }

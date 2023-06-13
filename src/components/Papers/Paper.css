@@ -1,5 +1,14 @@
+.paper-article-container{
+  display: flex;
+  justify-content: flex-start;
+  width: 300px;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
 .paper-article {
-    margin-bottom: 20px;
+    margin: 20px;
+    width: calc(70% - 30px);
   }
   
   .paper-article-title {

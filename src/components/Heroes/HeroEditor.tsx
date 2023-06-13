@@ -10,12 +10,11 @@ const HeroEditor: FC = () => {
     const heroService = useInjection(TOKENS.heroService);
 
     const [currentHero, setCurrentHero] = useState<Hero>(defaultHero)
-    const { id } = useParams();
+    const {  heroId } = useParams();
 
     const getCurrentHero = async () =>{
-        if(id){
-            let currentHeroId: number = Number.parseInt(id);
-            let heroResponse = await heroService.getHero(currentHeroId)
+        if(heroId){
+            let heroResponse = await heroService.getHero( Number.parseInt(heroId))
             setCurrentHero(heroResponse)
         }
     }
@@ -37,8 +36,12 @@ const HeroEditor: FC = () => {
         navigate('/heroes')
     }
 
+    const goToPapers = () =>{
+        navigate(`/hero/${currentHero.heroId}/papers`)
+    }
 
-    useEffect(() => { getCurrentHero() }, [id])
+
+    useEffect(() => { getCurrentHero() }, [heroId])
     return (
         <>
             <h2>{currentHero.name.toUpperCase()} Details</h2>
@@ -47,6 +50,8 @@ const HeroEditor: FC = () => {
                 <label >Hero name: </label>
                 <input id="updateheroid" value={currentHero.name} onChange={(e) => handleNameChange(e.target.value)}></input>
             </div>
+            <button type="button" onClick={goToPapers}>See Papers</button>
+
             <button type="button" onClick={save}>Save</button>
             <button type="button" onClick={deleteHero}>Delete</button>
 
