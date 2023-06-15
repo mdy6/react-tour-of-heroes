@@ -10,11 +10,11 @@ const PaperPresentation: FC = () => {
     const [refreshKey, setRefreshKey] = useState<number>()
     const paperService = useInjection(TOKENS.paperService);
     const { id } = useParams();
-    
+
     const [paperId, setPaperId] = useState(0)
     const [paper, setPaper] = useState<Paper>(defaultPaper);
 
-    
+
     const refresh = () => {
         setRefreshKey(Date.now())
     }
@@ -29,21 +29,21 @@ const PaperPresentation: FC = () => {
 
 
     useEffect(() => {
-        console.log(id);
         if (id)
             setPaperId(Number.parseInt(id))
         paperService.getPaper(paperId).then((response) => {
             setPaper(response)
         })
-    }, [refreshKey,paperId])
+    }, [refreshKey, paperId])
 
     return (
-        <div className="paper-article">
-            <h2 className="paper-title">{paper.title}</h2>
-            <div className="paper-content">{paper.content}</div>
-            <button onClick={like}>Like {paper.iLikeCount}</button>
-            <button onClick={dontLike}>Dont Like {paper.iDontLikeCount}</button>
-        </div>
+            <div className="paper-article">
+                <h2 className="paper-title">{paper.title}</h2>
+                <div className="paper-content">{paper.content}</div>
+                <button onClick={like}>Like {paper.iLikeCount}</button>
+                <button onClick={dontLike}>Dont Like {paper.iDontLikeCount}</button>
+            </div>
+
     );
 };
 

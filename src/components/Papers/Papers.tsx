@@ -43,7 +43,7 @@ const Papers: FC= () => {
 
                         {papers.map((paper) => {
                             return (
-                                <PaperCard paper={paper} onClick={() => goToPaper(paper.paperId)} />
+                                <PaperCard key={paper.paperId} paper={paper} onClick={() => goToPaper(paper.paperId)} />
                             )
                         })}
     
