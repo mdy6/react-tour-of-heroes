@@ -54,13 +54,14 @@ function App() {
         <h1>Tour of Heroes</h1>
         <ReactNotifications />
         <Routes>
-          <Route path='/' element={<HeroesNavBar />} />
-          <Route path='/dashboard' element={<HeroesDashboard />} />
-          <Route path='/heroes' element={<Heroes />} />
-          <Route path='/hero/:heroId' element={<HeroEditor />} />
-          <Route path='/hero/:heroId/papers' element={<Papers />} />
-          <Route path='/papers' element={<Papers />} />
-          <Route path='/papers/:id' element={<PaperPresentation />} />
+          <Route path='/' element={<HeroesNavBar />}>
+            <Route path='/dashboard' element={<HeroesDashboard />} />
+            <Route path='/heroes' element={<Heroes />} />
+            <Route path='/hero/:heroId' element={<HeroEditor />} />
+            <Route path='/hero/:heroId/papers' element={<Papers />} />
+            <Route path='/papers' element={<Papers />} />
+            <Route path='/papers/:id' element={<PaperPresentation />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>
